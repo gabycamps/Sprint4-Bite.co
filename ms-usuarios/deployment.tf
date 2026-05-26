@@ -128,22 +128,22 @@ resource "aws_instance" "ms_usuarios" {
   vpc_security_group_ids      = [aws_security_group.ms_usuarios.id, aws_security_group.ssh.id]
   key_name                    = var.key_name
 
-  user_data = <<-EOT
+ user_data = <<-EOT
     #!/bin/bash
     sudo apt-get update -y
     sudo apt-get install -y python3-pip python3-dev libpq-dev git
-
-    sudo export DB_HOST=${aws_db_instance.usuarios_db.address}
-    sudo export DB_NAME=usuarios_db
-    sudo export DB_USER=postgres
-    sudo export DB_PASSWORD=postgres123
-    sudo export DB_PORT=5432
 
     echo "DB_HOST=${aws_db_instance.usuarios_db.address}" | sudo tee -a /etc/environment
     echo "DB_NAME=usuarios_db" | sudo tee -a /etc/environment
     echo "DB_USER=postgres" | sudo tee -a /etc/environment
     echo "DB_PASSWORD=postgres123" | sudo tee -a /etc/environment
     echo "DB_PORT=5432" | sudo tee -a /etc/environment
+
+    export DB_HOST=${aws_db_instance.usuarios_db.address}
+    export DB_NAME=usuarios_db
+    export DB_USER=postgres
+    export DB_PASSWORD=postgres123
+    export DB_PORT=5432
 
     mkdir -p /labs
     cd /labs
