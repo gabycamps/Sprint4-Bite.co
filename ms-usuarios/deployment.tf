@@ -151,7 +151,7 @@ resource "aws_instance" "ms_usuarios" {
     git clone https://github.com/gabycamps/Sprint4-Bite.co
     cd Sprint4-Bite.co/ms-usuarios
 
-    sudo pip3 install -r requirements.txt --break-system-packages
+    sudo pip3 install -r requirements.txt --break-system-packages --ignore-installed
 
     sudo -E python3 manage.py makemigrations
     sudo -E python3 manage.py migrate
