@@ -54,6 +54,8 @@ class ProyectoModelTest(TestCase):
 class ProyectosBatchTest(TestCase):
     def setUp(self):
         self.client = APIClient()
+        self.user = User.objects.create_user(username='testuser', password='123')
+        self.client.force_authenticate(user=self.user)
         self.empresa = Empresa.objects.create(
             nombre='Batch Corp',
             nit_o_rut='batch-001',
