@@ -1,25 +1,10 @@
-from fastapi import APIRouter, HTTPException
-from .schemas import ConsumoEntrada
-from .logic import obtener_consumos, guardar_consumo
-from .models import nuevo_consumo
+from fastapi import FastAPI
+from ms_consumos.views import router
 
-router = APIRouter()
+app = FastAPI(title="MS-Consumos Bite.co", version="1.0.0")
 
-@router.get("/consumos/{proyecto_id}")
-async def get_consumos(proyecto_id: str, fecha_inicio: str, fecha_fin: str):
-    datos = await obtener_consumos(proyecto_id, fecha_inicio, fecha_fin)
-    if not datos:
-        raise HTTPException(status_code=404, detail="No hay consumos para ese proyecto")
-    return datos
+app.include_router(router, prefix="/api")
 
-@router.post("/consumos/")
-async def post_consumo(consumo: ConsumoEntrada):
-    doc = nuevo_consumo(
-        consumo.proyecto_id,
-        consumo.proveedor,
-        consumo.servicio,
-        consumo.costo,
-        consumo.fecha
-    )
-    id_creado = await guardar_consumo(doc)
-    return {"id": id_creado, "mensaje": "Consumo creado"}
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8002, reload=False)

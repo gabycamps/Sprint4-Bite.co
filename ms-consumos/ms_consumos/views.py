@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
-from .schemas import ConsumoEntrada
-from .logic import obtener_consumos, guardar_consumo
-from .models import nuevo_consumo
+from ms_consumos.schemas import ConsumoEntrada
+from ms_consumos.logic import obtener_consumos, guardar_consumo
+from ms_consumos.models import nuevo_consumo
 
 router = APIRouter()
 
