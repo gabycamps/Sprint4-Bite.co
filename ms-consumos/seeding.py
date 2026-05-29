@@ -36,6 +36,6 @@ async def poblar():
         documentos.append(doc)
     
     await coleccion.insert_many(documentos)
-    print(f"✅ Se insertaron {len(documentos)} registros en MongoDB")
+    print(f"Se insertaron {len(documentos)} registros en MongoDB")
 
 asyncio.run(poblar())
