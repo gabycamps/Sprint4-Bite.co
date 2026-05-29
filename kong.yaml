@@ -1,0 +1,64 @@
+_format_version: "2.1"
+
+services:
+  - name: usuarios_service
+    host: usuarios_upstream
+    protocol: http
+    routes:
+      - name: usuarios
+        paths:
+          - /usuarios/
+        strip_path: false
+
+  - name: empresas_service
+    host: empresas_upstream
+    protocol: http
+    routes:
+      - name: empresas
+        paths:
+          - /api/v1/empresas/
+          - /api/v1/proyectos/
+          - /api/v1/internal/
+          - /api/v1/health/
+        strip_path: false
+
+  - name: consumos_service
+    host: consumos_upstream
+    protocol: http
+    routes:
+      - name: consumos
+        paths:
+          - /api/consumos/
+        strip_path: false
+
+  - name: reportes_service
+    host: reportes_upstream
+    protocol: http
+    routes:
+      - name: reportes
+        paths:
+          - /api/v1/reportes/
+          - /api/v1/seguridad/
+          - /api/v1/recursos/
+        strip_path: false
+
+upstreams:
+  - name: usuarios_upstream
+    targets:
+      - target: <USUARIOS_HOST>:8000
+        weight: 100
+
+  - name: empresas_upstream
+    targets:
+      - target: <EMPRESAS_HOST>:8001
+        weight: 100
+
+  - name: consumos_upstream
+    targets:
+      - target: <CONSUMOS_HOST>:8002
+        weight: 100
+
+  - name: reportes_upstream
+    targets:
+      - target: <REPORTES_HOST>:8000
+        weight: 100
