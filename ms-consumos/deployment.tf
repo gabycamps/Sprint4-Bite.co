@@ -123,7 +123,7 @@ resource "aws_instance" "ms_consumos" {
     # Clonar el repo y correr el microservicio
     mkdir -p /labs
     cd /labs
-    git clone https://github.com/Dangar221/Sprint4-Bite.co
+    git clone https://github.com/gabycamps/Sprint4-Bite.co.git
     cd Sprint4-Bite.co/ms-consumos
 
     python3 -m venv venv
